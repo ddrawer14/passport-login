@@ -15,6 +15,7 @@ var isAuthenticated = function (req, res, next) {
 
 //Takes instance of Passport created in app.js 
 module.exports = function(passport) {
+
 	/* GET home page. */
 	router.get('/', function(req, res) {
 	  res.render('index', { message: req.flash('message') });
@@ -44,11 +45,30 @@ module.exports = function(passport) {
 		res.render('home', { user: req.user });
 	});
 
+	router.get('/fb', isAuthenticated, function(req, res) {
+		res.render('fb', { user: req.user });
+	});
+
 	/* Handle Logout */
 	router.get('/signout', function(req, res) {
 		req.logout();
 		res.redirect('/');
 	});
+
+
+	// route for facebook authentication and login
+	// different scopes while logging in
+	router.get('/login/facebook', 
+		passport.authenticate('facebook', { scope : 'email' }
+	));
+
+	// handle the callback after facebook has authenticated the user
+	router.get('/login/facebook/callback',
+		passport.authenticate('facebook', {
+			successRedirect : '/fb',
+			failureRedirect : '/'
+		})
+	);
 
 
 	return router;
