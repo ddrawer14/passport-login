@@ -24,7 +24,7 @@ module.exports = function(passport) {
 		//Allows to pass back the entire request to callback
 		passReqToCallback : true
 	},
-
+	// Verify callback
 	function(req, username, password, done) {
 
 		findOrCreateUser = function() {
@@ -64,6 +64,8 @@ module.exports = function(passport) {
 					}
 				});
 		};
+	  // Delay the execution of findOrCreateUser and execute 
+	  // the method in the next tick of the event loop
 		process.nextTick(findOrCreateUser);
 	})
 	);
@@ -75,7 +77,6 @@ module.exports = function(passport) {
 		// enables use of any parameters assosciated with the request
 		passReqToCallback : true
 	},
-
 	// The verify callback for local auth accepts username and password args
 	// They are submitted via the login form
 	function(req, username, password, done) {

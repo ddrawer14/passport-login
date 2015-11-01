@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	div.container
+		div.row
+			div.col-sm-6
+				// Display user account
+				if user.local.username
+					h1.login-title Welcome #{user.local.firstName}!
+					h3 Account details:
+					div.account-info
+						ul.user-details
+							li Username: #{user.local.username}
+							li Email: #{user.local.email}
+							li First Name: #{user.local.firstName}
+							li Last Name: #{user.local.lastName}
+					a(href='/signout', class='text-center new-account') Sign Out
+
+				else if user.fb.access_token
+					h3.text-center Facebook login
+					h1.login-title Welcome #{user.fb.firstName}!
+					h2 Account details:
+					div.wall
+						ul.user-details
+							li Email: #{user.fb.email}
+							li First Name: #{user.fb.firstName}
+							li Last Name: #{user.fb.lastName}
+					a(href='/signout', class='text-center new-account') Sign Out
