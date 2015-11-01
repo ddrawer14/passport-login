@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-// Using mongoose module to connect to MongoDB 
+// Using mongoose module to connect to MongoDB
 mongoose.connect('mongodb://localhost/passport');
 
 var app = express();
@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Configuring Passport
 var passport = require('passport');

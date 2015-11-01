@@ -7,23 +7,22 @@ var twttr = require('./twttr');
 
 module.exports = function(passport) {
 
-	// {Se/De}serialize user instance from session store to support persistent login sessions
-	 //Subsequent request won't contain user credentials
-	passport.serializeUser(function(user, done) {
+	// {Se|De}serialize user instance from session store to support persistent login sessions
+	 //Once authenticated, subsequent request won't contain user credentials
+	passport.serializeUser( function(user, done) {
         console.log('serializing user: ' + user);
         done(null, user._id);
     });
 
-	passport.deserializeUser(function(id, done) {
+	passport.deserializeUser( function(id, done) {
         User.findById(id, function(err, user) {
             console.log('deserializing user: ' + user);
             done(err, user);
         });
     });
 
-
 	local(passport);
-    fb(passport);
-  //  twttr(passport);
+  fb(passport);
+//twttr(passport);
 
 }
